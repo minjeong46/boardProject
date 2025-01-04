@@ -1,0 +1,45 @@
+<html layout:decorate="~{layout}">
+    <div layout:fragment="content" class="container my-3">
+        <table class="table">
+            <thead class="table-danger text-center">
+            <tr>
+                <th>번호</th>
+                <th style="width: 50%">제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="notice, loop : ${paging}">
+                <td th:text="${paging.totalElements - (paging.number - paging.size) - loop.index}" class="text-center"></td>
+                <td>
+                    <a th:href="@{|/notice/detail/${notice.id}|}" th:text="${notice.subject}"></a>
+                    <span th:if="${#lists.size(notice.answerList) > 0}" class="text-danger"></span>
+                </td>
+                <td>
+                    <span th:if="${notice.author != null}" th:text="${notice.author.username}" class="text-center"></span>
+                </td>
+                <td th:text="${#temporals.format(notice.createDate, 'YYY-MM-dd HH:mm')}" class="text-center"></td>
+                <td th:text="${notice.count}" class="text-center"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${!paging.isEmpty()}">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${paging.number -1}|}" >이전</a>
+                </li>
+                <li class="page-item" th:each="page : ${#numbers.sequence(0 , paging.totalPages -1)}" th:if="${page >= paging.number -2 and page <= paging.number +2}">
+                    <a class="page-link" th:classappend="${page == paging.number} ? 'active'"  th:href="@{|?page=${page}|}" th:text="${page}"></a>
+                </li>
+                <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${paging.number +1}|}" >다음</a>
+                </li>
+            </ul>
+        </div>
+
+
+        <a th:href="@{/notice/create}" class="btn btn-primary">질문 등록</a>
+    </div>
+</html>
