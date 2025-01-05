@@ -1,13 +1,11 @@
-package com.springboot.biz.board;
+package com.springboot.biz.board.question;
 
-import com.springboot.biz.answer.Answer;
 import com.springboot.biz.answer.AnswerForm;
 import com.springboot.biz.user.SiteUser;
 import com.springboot.biz.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,9 +24,11 @@ public class QuestionController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public String list(@RequestParam(value = "page", defaultValue = "0") int page ,Model model) {
-        Page<Question> paging = this.questionService.getList(page);
+    public String list(@RequestParam(value = "page", defaultValue = "0") int page ,
+            @RequestParam(value = "kw" , defaultValue = "") String kw, Model model) {
+        Page<Question> paging = this.questionService.getList(page, kw);
         model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
         return "question_list";
     }
 
@@ -102,4 +100,5 @@ public class QuestionController {
         this.questionService.voter(question,user);
         return String.format("redirect:/question/detail/%s", id);
     }
+
 }

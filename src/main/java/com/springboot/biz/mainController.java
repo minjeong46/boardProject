@@ -1,10 +1,14 @@
-package com.springboot.biz.user;
+package com.springboot.biz;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 public class mainController {
 
-    @PostMapping("/")
+    @GetMapping("/")
+    public String main() {
+        return "main";
+    }
 }

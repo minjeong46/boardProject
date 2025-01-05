@@ -1,4 +1,4 @@
-package com.springboot.biz.board;
+package com.springboot.biz.board.question;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;

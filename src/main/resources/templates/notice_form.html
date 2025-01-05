@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+
+<html layout:decorate="~{layout}">
+    <div layout:fragment="content" class="container my-3">
+        <h2 class="my-3 py-4 text-center border-bottom" >글 등록</h2>
+        <form method="post" th:object="${noticeForm}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div class="mb-3 row">
+                <label for="subject" class="col-sm-2 col-form-label text-center">제목</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{subject}" placeholder="제목을 입력해주세요.">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="author" class="col-sm-2 col-form-label text-center">작성자</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="author" name="author" disabled th:value="${user.username}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="content" class="col-sm-2 col-form-label text-center">내용</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" th:field="*{content}" rows="8" placeholder="내용을 입력해주세요."></textarea>
+                </div>
+            </div>
+
+            <input type="submit" value="글 등록" class="btn float-end" style="background-color: #F0C87D; margin-top: 30px">
+
+
+        </form>
+
+    </div>
 </html>

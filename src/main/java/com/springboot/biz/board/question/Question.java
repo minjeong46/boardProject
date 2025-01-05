@@ -1,10 +1,9 @@
-package com.springboot.biz.board;
+package com.springboot.biz.board.question;
 
 import com.springboot.biz.answer.Answer;
 import com.springboot.biz.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 

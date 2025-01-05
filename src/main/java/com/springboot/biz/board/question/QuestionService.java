@@ -1,4 +1,4 @@
-package com.springboot.biz.board;
+package com.springboot.biz.board.question;
 
 import com.springboot.biz.DataNotFoundException;
 import com.springboot.biz.user.SiteUser;
@@ -19,12 +19,13 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionRepository questionRepository;
 
-    public Page<Question> getList(int page){
+    public Page<Question> getList(int page, String kw){
         List<Sort.Order> sort = new ArrayList<>();
         sort.add(Sort.Order.desc("createDate"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sort));
-        return this.questionRepository.findAll(pageable);
+        return this.questionRepository.findAllKeyword(kw, pageable);
     }
+
 
     public Question getQuestion(Integer id){
         Optional<Question> question = questionRepository.findById(id);
@@ -64,4 +65,5 @@ public class QuestionService {
         q.setCount(q.getCount() + 1);
         this.questionRepository.save(q);
     }
+
 }

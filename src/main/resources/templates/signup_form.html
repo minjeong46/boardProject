@@ -1,21 +1,24 @@
 <html layout:decorate="~{layout}">
     <div layout:fragment="content" class="container my-3">
-        <div class="mb-3">
-            <label for="username" class="form-label">사용자 ID</label>
-            <input type="text" class="form-control" name="username" id="username">
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
-            <input type="password" class="form-control" name="password" id="password">
-        </div>
-        <div class="mb-3">
-            <label for="passwordChk" class="form-label">비밀번호 확인</label>
-            <input type="password" class="form-control" name="passwordChk" id="passwordChk">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">이메일</label>
-            <input type="email" class="form-control" name="email" id="email">
-        </div>
-
+        <form th:action="@{/user/signup}" method="post" th:object="${siteUserForm}">
+            <div th:replace="~{form_error :: formErrorFragment}"></div>
+            <div class="mb-3">
+                <label for="username" class="form-label">사용자 ID</label>
+                <input type="text" class="form-control" name="username" id="username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="password" class="form-control" name="password" id="password">
+            </div>
+            <div class="mb-3">
+                <label for="passwordChk" class="form-label">비밀번호 확인</label>
+                <input type="password" class="form-control" name="passwordChk" id="passwordChk">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">이메일</label>
+                <input type="email" class="form-control" name="email" id="email">
+            </div>
+            <input type="submit" value="회원가입">
+        </form>
     </div>
 </html>

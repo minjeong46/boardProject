@@ -1,0 +1,63 @@
+<html layout:decorate="~{layout}">
+    <div layout:fragment="content" class="container my-3">
+        <div class="border-bottom my-3">
+            <h2 th:text="${question.subject}"></h2>
+        </div>
+        <div class="card border-primary mb-3">
+            <div class="card-body text-primary">
+                <div class="card-text" th:text="${question.content}"></div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark py-2 text-start">
+                        <div th:if="${question.author != null}" th:text="|작성자 : ${question.author.username}|"></div>
+                        <div th:text="|작성일 : ${#temporals.format(question.createDate,'YYYY-MM-dd HH:mm')}|"></div>
+                    </div>
+                </div>
+                <div class="my-3">
+                    <a class="btn btn-outline-secondary btn-sm" th:href="@{|/question/modify/${question.id}|}" sec:authorize="isAuthenticated()" th:text="수정"></a>
+                    <a class="btn btn-outline-secondary btn-sm delete" href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}" sec:authorize="isAuthenticated()" th:text="삭제"></a>
+                </div>
+
+
+            </div>
+        </div>
+        <div th:text="|현재 ${#lists.size(question.answerList)} 개의 답글이 있습니다.|" class="my-2"></div>
+        <div class="card my-2" th:each="answer : ${question.answerList}">
+            <div class="card-body">
+                <p class="card-text" th:text="${answer.content}"></p>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark py-2 text-start">
+                        <div th:if="${answer.author != null}" th:text="|작성자 : ${answer.author.username}|"></div>
+                        <div th:text="|작성일 : ${#temporals.format(answer.createDate,'YYYY-MM-dd HH:mm')}|"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-2">
+            <form th:action="@{|/answer/create/${question.id}|}" method="post" th:object="${answerForm}">
+                <div th:replace="~{form_error :: formErrorFragment}"></div>
+                <div class="mb-3">
+                    <textarea class="form-control" disabled sec:authorize="isAnonymous()" name="content" id="content" rows="10"></textarea>
+                    <textarea class="form-control" sec:authorize="isAuthenticated()" name="content" id="content" rows="10"></textarea>
+                    <input class="btn btn-primary my-2" type="submit" value="답글 등록" >
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+
+
+    <script type="text/javascript" layout:fragment="script">
+        const delete_element = document.getElementsByClassName("delete");
+        Array.from(delete_element).forEach(function(element){
+            element.addEventListener("click",function (){
+                if(confirm("정말 삭제하시겠습니까?")){
+                    location.href = this.dataset.uri;
+                }
+
+            });
+        });
+    </script>
+
+</html>
