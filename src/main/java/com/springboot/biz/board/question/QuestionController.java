@@ -33,10 +33,17 @@ public class QuestionController {
     }
 
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Integer id, Model model, AnswerForm answerForm) {
+    public String detail(@PathVariable("id") Integer id, Model model, AnswerForm answerForm, Principal principal) {
         Question question = this.questionService.getQuestion(id);
         this.questionService.cntQuestion(id);
+
         model.addAttribute("question", question);
+
+        if(principal != null) {
+            SiteUser user = this.userService.getUser(principal.getName());
+            model.addAttribute("user", user);
+        }
+
         return "question_detail";
     }
 
