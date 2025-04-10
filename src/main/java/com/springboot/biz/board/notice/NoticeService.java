@@ -52,7 +52,7 @@ public class NoticeService {
 
     public void modify(Notice notice, String subject, String content){
         notice.setSubject(subject);
-        notice.setContent(content);
+        notice.setContent(content.replace("\n", "<br/>"));
         notice.setModifyDate(LocalDateTime.now());
         this.noticeRepository.save(notice);
     }

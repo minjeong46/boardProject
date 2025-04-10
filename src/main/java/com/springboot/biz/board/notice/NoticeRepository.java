@@ -19,8 +19,8 @@ public interface NoticeRepository extends JpaRepository<Notice, Integer> {
 
     @Query(
             "select distinct n from Notice n "
-            + "where "
-            + "n.subject like %:kw%"
+                    + "where "
+                    + "n.subject like %:kw%"
     )
 
     Page<Notice> findBySubjectKeyword(@Param("kw") String kw, Pageable pageable);

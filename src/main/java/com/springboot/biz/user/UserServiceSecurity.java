@@ -23,6 +23,8 @@ public class UserServiceSecurity implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<SiteUser> siteUser = this.userRepository.findByUsername(username);
 
+        System.out.println("@@@@@" + username);
+
         if(siteUser.isEmpty()){
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
@@ -35,7 +37,7 @@ public class UserServiceSecurity implements UserDetailsService {
         }else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
-
+        System.out.println(user.getUsername());
         return new User(user.getUsername(), user.getPassword(), authorities);
     }
 }

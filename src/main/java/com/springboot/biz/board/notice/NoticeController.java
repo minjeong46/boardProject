@@ -36,7 +36,7 @@ public class NoticeController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
-    public String createNotice(Principal principal, Model model, NoticeForm noticeForm) {
+    public String createNotice( Principal principal, Model model, NoticeForm noticeForm) {
         SiteUser user = userService.getUser(principal.getName());
         model.addAttribute("user", user);
         return "notice_form";
