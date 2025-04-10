@@ -5,11 +5,14 @@ import com.springboot.biz.board.notice.Notice;
 import com.springboot.biz.board.notice.NoticeRepository;
 import com.springboot.biz.board.question.Question;
 import com.springboot.biz.board.question.QuestionRepository;
+import com.springboot.biz.user.SiteUser;
+import com.springboot.biz.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @SpringBootTest
 class BoardProjectApplicationTests {
@@ -22,6 +25,9 @@ class BoardProjectApplicationTests {
 
     @Autowired
     private NoticeRepository noticeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     void contextLoads() {
@@ -50,11 +56,14 @@ class BoardProjectApplicationTests {
 //            this.questionRepository.save(q);
 //        }
 
-        Notice notice = new Notice();
-        notice.setSubject("공지사항 게시판입니다.222");
-        notice.setContent("게시판 내용을 작성합니다.22222");
-        notice.setCreateDate(LocalDateTime.now());
-        this.noticeRepository.save(notice);
+//        Notice notice = new Notice();
+//        notice.setSubject("공지사항 게시판입니다.222");
+//        notice.setContent("게시판 내용을 작성합니다.22222");
+//        notice.setCreateDate(LocalDateTime.now());
+//        this.noticeRepository.save(notice);
+
+        Optional<SiteUser> user = this.userRepository.findByUsername("user1");
+        System.out.println(user.get().getUsername());
 
 
     }

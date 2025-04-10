@@ -33,7 +33,7 @@
                         <span th:if="${question.author != null}" th:text="${question.author.username}" ></span>
                     </td>
                     <td th:text="${#temporals.format(question.createDate, 'YYY-MM-dd HH:mm')}" class="text-center"></td>
-                    <!--<td th:text="${question.count}" class="text-center"></td>-->
+                    <td th:text="${question.count}" class="text-center"></td>
                 </tr>
             </tbody>
         </table>
@@ -52,8 +52,8 @@
         </div>
 
         <form th:action="@{/question/list}" method="get" id="searchForm">
-            <input type="text" id="kw" name="kw" th:value="${kw}">
-            <input type="text" id="page" name="page" th:value="${paging.number}">
+            <input type="hidden" id="kw" name="kw" th:value="${kw}">
+            <input type="hidden" id="page" name="page" th:value="${paging.number}">
         </form>
 
     </div>
